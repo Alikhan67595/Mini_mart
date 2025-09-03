@@ -72,7 +72,7 @@ const continueGoogle = () => {
 
   return (
     <>
-     <div className='h-screen w-screen flex justify-center items-center bg-cover bg-center  font-[font1]'
+     <div className='h-screen w-screen flex justify-center items-center bg-cover bg-center '
      style={{ backgroundImage: `url(${picture})` }}> 
 
       <div className='h-[400px] w-[300px] rounded-3xl flex flex-col items-center justify-center gap-[10px]  bg-white/10 backdrop-blur shadow-[0_4px_30px_rgba(0,0,0,0.9)]'>
