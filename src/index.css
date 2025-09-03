@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Font1";
+  src: url('./public/fonts/Roboto-Italic.ttf') format("truetype");
+}
+@font-face {
+  font-family: "MyFont2";
+  src: url('./public/fonts/Roboto-Variable.ttf') format("truetype");
+}
+
+
+body {
+  font-family: "font1", sans-serif;
+}
