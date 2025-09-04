@@ -61,7 +61,7 @@ const Signup = () => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
       const user = result.user;
-      navigate("/", { replace: true });
+      navigate("/dashboard", { replace: true });
     
     }).catch((error) => {
      console.log(error)

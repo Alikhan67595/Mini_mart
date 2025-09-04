@@ -23,7 +23,7 @@ const Login = () => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         
-        navigate("/dashboard", { replace: true });
+        navigate("/", { replace: true });
       } 
     });
 

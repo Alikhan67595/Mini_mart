@@ -1,16 +1,20 @@
 import React from 'react'
 import {getAuth ,signInWithEmailAndPassword , onAuthStateChanged} from 'firebase/auth';
 import app from "../firebase.js";
-import { Link , useNavigate } from 'react-router-dom';
+import { Link , Outlet, useNavigate } from 'react-router-dom';
 import { useState ,useEffect } from 'react';
 import Navbar from "../components/Navbar.jsx";
+import Subnavbar from '../components/Subnavbar.jsx';
+import Product from './Product.jsx';
+import Mobilenavbar from '../components/Mobilenavbar.jsx';
+
 
 
 const auth = getAuth(app);
 
 const Api = () => {
 
-  const  [data , setData] = useState(['']);
+  const  [dataProduct , setData] = useState(['']);
 
   const navigate = useNavigate();
   
@@ -19,13 +23,11 @@ const Api = () => {
     useEffect(() => {
       // Ye function har bar check karega jab auth state change ho
       const unsubscribe = onAuthStateChanged(auth, (user) => {
-        if (user) {
+        if (!user) {
           
-          navigate("/dashboard", { replace: true });
-        } 
-        else{
           navigate("/", { replace: true });
-        }
+        } 
+        
       });
   
       // cleanup jab component destroy ho
@@ -42,7 +44,7 @@ const Api = () => {
 
         // ye data kai andar api kai data set karega
         setData(response.products)
-        console.log(data);
+        console.log(response);
 
       } catch (error) {
         
@@ -54,9 +56,20 @@ const Api = () => {
     }, [])
   
   return (
-    <div className='h-screen w-screen flex'>
-      
+
+    <>
+    <Navbar/>
+    <Mobilenavbar/>
+    <div className='box-border flex flex-wrap justify-center gap-6 bg-[#141414] text-white max-w-7xl m-auto mt-[90px] '>
+
+    <Subnavbar/>
+<div>
+  <Outlet/>
+</div>
+
     </div>
+
+    </>
   )
 }
 
