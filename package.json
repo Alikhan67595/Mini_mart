@@ -12,6 +12,8 @@
       "preview": "vite preview"
    },
    "dependencies": {
+      "@headlessui/react": "^2.2.7",
+      "@heroicons/react": "^2.2.0",
       "@tailwindcss/vite": "^4.1.12",
       "firebase": "^12.2.1",
       "react": "^19.1.1",
