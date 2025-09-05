@@ -7,6 +7,7 @@ import Navbar from "../components/Navbar.jsx";
 import Subnavbar from '../components/Subnavbar.jsx';
 import Product from './Product.jsx';
 import Mobilenavbar from '../components/Mobilenavbar.jsx';
+import Skeleton from '../components/Skeleton.jsx';
 
 
 
@@ -44,7 +45,12 @@ const Api = () => {
 
         // ye data kai andar api kai data set karega
         setData(response.products)
-        console.log(response);
+
+        const cardLength = response.products.length
+
+        console.log(cardLength);
+        
+        
 
       } catch (error) {
         
@@ -66,6 +72,9 @@ const Api = () => {
 <div>
   <Outlet/>
 </div>
+
+
+{/* <Skeleton /> */}
 
     </div>
 
