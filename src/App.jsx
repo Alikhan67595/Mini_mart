@@ -14,6 +14,7 @@ import Electronic from './pages/Electronic.jsx'
 import Product from './pages/Product.jsx'
 import Clothes from './pages/Clothes.jsx'
 import Movies from './pages/Movies.jsx'
+import Product_info from './pages/Product_info.jsx'
 
 
 function App() {
@@ -22,8 +23,11 @@ function App() {
     <>
       <Routes>
         <Route path='/' element={<Login />} />
-        <Route path='/dashboard' element={<Api/>}>
+
+        <Route path='/products' element={<Api/>}>
+
         <Route index element={<Product/>}/>
+        <Route path=':id' element={<Product_info/>}/>
         <Route path='electronics' element={<Electronic/>}/>
         <Route path='clothes' element={<Clothes/>}/>
         <Route path='movies' element={<Movies/>}/>

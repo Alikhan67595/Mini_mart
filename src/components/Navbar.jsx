@@ -18,11 +18,11 @@ const Navbar = () => {
         <div className='w-[100px]'><img width={'100%'} src={logo} alt={logo} /></div>
 
         <ul className='flex items-center gap-4'>
-            <NavLink to={"/dashboard"} className={({ isActive }) => 
+            <NavLink to={"/products"} className={({ isActive }) => 
                 ` rounded-[8px] ease-in duration-150 hover:bg-white hover:text-[#703bf7]   ${
                   isActive ? "bg-[#703bf7] text-white font-semibold  " : "text-white"
                 }`
-              }><li className=' px-[15px] py-[8px] rounded-[8px]'>Dashboard</li></NavLink>
+              }><li className=' px-[15px] py-[8px] rounded-[8px]'>Product</li></NavLink>
 
 
             <NavLink to={"/about"} className={({ isActive }) => 

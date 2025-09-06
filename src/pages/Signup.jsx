@@ -26,7 +26,7 @@ const Signup = () => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         
-        navigate("/dashboard", { replace: true });
+        navigate("/products", { replace: true });
       } 
     });
     return () => unsubscribe();
@@ -61,7 +61,7 @@ const Signup = () => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
       const user = result.user;
-      navigate("/dashboard", { replace: true });
+      navigate("/products", { replace: true });
     
     }).catch((error) => {
      console.log(error)

@@ -40,6 +40,7 @@ signInWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
+    navigate("/products", { replace: true });
     console.log(user)
     // ...
   })
@@ -60,7 +61,7 @@ const continueGoogle = () => {
     const credential = GoogleAuthProvider.credentialFromResult(result);
     const token = credential.accessToken;
     const user = result.user;
-    navigate("/dashboard", { replace: true });
+    navigate("/products", { replace: true });
   
   }).catch((error) => {
    console.log(error)

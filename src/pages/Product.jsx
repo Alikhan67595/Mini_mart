@@ -4,12 +4,13 @@ import app from "../firebase.js";
 import { Link , useNavigate } from 'react-router-dom';
 import { useState ,useEffect } from 'react';
 import Skeleton from '../components/Skeleton.jsx';
+import axios from 'axios';
 
 const Product = () => {
 
 const auth = getAuth(app);
 
-  const  [dataProduct , setData] = useState(['']);
+  const  [dataProduct , setData] = useState([null]);
   const  [loading , setLoading] = useState(true);
 
   const navigate = useNavigate();
@@ -19,13 +20,11 @@ const auth = getAuth(app);
     useEffect(() => {
       // Ye function har bar check karega jab auth state change ho
       const unsubscribe = onAuthStateChanged(auth, (user) => {
-        if (user) {
+        if (!user) {
           
-          navigate("/dashboard", { replace: true });
-        } 
-        else{
           navigate("/", { replace: true });
-        }
+        } 
+   
       });
   
       // cleanup jab component destroy ho
@@ -37,12 +36,12 @@ const auth = getAuth(app);
 
     const fetchData = async () => {
       try { 
-        const response = await fetch('https://dummyjson.com/products').then(res => res.json())
+        const response = await axios.get('https://dummyjson.com/products')
         
 
         // ye data kai andar api kai data set karega
-        setData(response.products)
-        // console.log(response);
+        setData(response.data.products)
+        console.log(response);
         setLoading(false)
 
       } catch (error) {
@@ -63,7 +62,7 @@ const auth = getAuth(app);
           <Skeleton/>
         ):
      dataProduct.map((item, index)=>(
-      <div key={index} className='box-border border-[#262626] border-[1px] bg-[#141414] flex flex-col  w-[300px] rounded-[15px] p-[25px] px-[25px] transform transition-transform ease-in duration-200 hover:scale-101 justify-between hover:bg-[#262626]'>
+      <div key={item.id} className='box-border border-[#262626] border-[1px] bg-[#141414] flex flex-col  w-[300px] rounded-[15px] p-[25px] px-[25px] transform transition-transform ease-in duration-200 hover:scale-101 justify-between hover:bg-[#262626]'>
 
        <div className='bg-[#bab8b6] w-[100%] h-[250px] flex justify-center items-center rounded-[15px]'> <img className='w-[200px]' src={item.thumbnail} alt={item.thumbnail} /></div>
 
@@ -75,7 +74,7 @@ const auth = getAuth(app);
       <div className='flex justify-between items-end '>
       <h6>$ {item.price}</h6>
 
-      <button className='bg-[#703bf7] px-[7px] py-[6px] rounded-md text-[15px] cursor-pointer'>Add To Cart</button>
+      <Link to={`/products/${item.id}`}><button className='bg-[#703bf7] px-[7px] py-[6px] rounded-md text-[15px] cursor-pointer'>More Detail</button></Link>
 
       </div>
        </div>
