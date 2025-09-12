@@ -1,5 +1,6 @@
 import {getAuth , createUserWithEmailAndPassword , onAuthStateChanged  ,GoogleAuthProvider , signInWithPopup , updateProfile} from 'firebase/auth';
-import app from "../firebase.js";
+import {collection, addDoc , setDoc, doc , serverTimestamp } from 'firebase/firestore';
+import {app , db} from "../firebase.js";
 import React from 'react'
 import Button from '../components/LoginBut.jsx'
 import { Link ,useNavigate } from 'react-router-dom'
@@ -29,23 +30,33 @@ const Signup = () => {
   
   // ye signup function hai
 
-  const signupUser = () => {
+  const signupUser = async() => {
 
-    createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
+    try {
+   const Signupdata = await  createUserWithEmailAndPassword(auth, email, password)
 
-    updateProfile(auth.currentUser, {
+   const user = Signupdata.user;
+   // console.log(user);
+
+   await updateProfile(user, {
       displayName: name
     })
-    // Signed up 
-    const user = userCredential.user;
-    // console.log(user);
-    // ...
-  })
-  .catch((error) => {
-    console.log(error.message);
-  });
-  
+    
+      await setDoc(doc(db, "users", user.uid), {
+      uid: user.uid,
+      name: name,
+      password: password,
+      email: email,      
+      createdAt: serverTimestamp(),
+    });
+
+
+
+  }
+    
+     catch (error) {
+      console.log(error.message);
+    }
   
 }
 

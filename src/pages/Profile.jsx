@@ -1,4 +1,4 @@
-import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
+import { getAuth, signOut, onAuthStateChanged , updateProfile } from "firebase/auth";
 import { Outlet, Link, NavLink, useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar';
 import Mobilenavbar from '../components/Mobilenavbar.jsx';
@@ -14,8 +14,8 @@ const Profile = () => {
 
   const navigate = useNavigate()
 
-  const [myUser, setMyUser] = useState(null)
-  // const [myfirstLetter, setFirstLetter] = useState("")
+  const [myUser, setMyUser] = useState('')
+  // const [myImage , setMyImage] = useState()
 
 
   const handelsignOut = () => {
@@ -29,25 +29,25 @@ const Profile = () => {
 
   }
 
-  useEffect(() => {
+    useEffect(() => {
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const uid = user.uid;
 
         // ye current user ko variable mai save kar raha hai 
-        setMyUser(user)
-        // console.log(myUser)
+        setTimeout(()=>{
+          setMyUser(user)
+          console.log( "This is User",myUser)
+        },500)
 
-        
-        
       }
       
     });
     
   }, [])
-  
-  const  myfirstLetter = myUser?.displayName ? myUser.displayName[0].toLocaleUpperCase() : ""
+
+  const myfirstLetter = myUser?.displayName ? myUser.displayName[0].toLocaleUpperCase() : ""
   // console.log(myfirstLetter)
 
 
@@ -60,11 +60,18 @@ const Profile = () => {
 
       <Navbar />
       <div className='text-white flex  mt-[60px] pl-[20px'>
+
         <div className='box-border flex flex-wrap justify-center items-center gap-[50px]'>
           {/* <h1 className='text-3xl font-bold text-center mt-[20px]'>My Profile</h1> */}
-          <div className=' text-[clamp(40px,15vw,120px)] h-[170px] w-[170px] rounded-[50%] bg-[#703bf7] flex items-center justify-center'>{ myUser?.photoURL 
-          ?( <img className="h-[170px] w-[170px] rounded-[50%]" src={myUser?.photoURL} />)
-            : ( myfirstLetter ) }</div>
+
+          {myUser.photoURL 
+
+          ? <div className=' text-[clamp(40px,15vw,120px)] h-[170px] w-[170px] rounded-[50%] bg-[#703bf7] flex items-center justify-center'>{<img className="h-[170px] w-[170px] rounded-[50%]" src={myUser?.photoURL} />
+            }</div>
+
+
+          : <div className=' text-[clamp(40px,15vw,120px)] h-[170px] w-[170px] rounded-[50%] bg-[#703bf7] flex items-center justify-center'>{myfirstLetter  }</div>
+           }
 
           <div className=''>
             <h1 className='text-[30px] font-semibold mt-[10px]'>{myUser?.displayName}</h1>

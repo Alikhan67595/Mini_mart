@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
-import { useState ,useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -15,68 +15,82 @@ import Product from './pages/Product.jsx'
 import Clothes from './pages/Clothes.jsx'
 import Movies from './pages/Movies.jsx'
 import Product_info from './pages/Product_info.jsx'
-import app from "./firebase.js";
-import {getAuth , onAuthStateChanged} from 'firebase/auth';
+import {app} from "./firebase.js";
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import AdminLogin from './pages/AdminLogin.jsx'
+import Admin from './pages/Admin.jsx'
 
 
-const auth = getAuth(app);
+
 function App() {
-  const [user , setUser] = useState(null);
+
+  const auth = getAuth(app);
+
+  const [myuser, setUser] = useState(null);
 
 
   useEffect(() => {
-     onAuthStateChanged(auth, (currentLogin) => {
-       setUser(currentLogin);
-      });
-      
-    },);
+    onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
 
-    
+  },);
+
+  let routes;
+
+  if (!myuser) {
+    routes = (<Routes>
+
+      <Route path='/' element={<Api />}>
+
+        <Route index element={<Product />} />
+        <Route path='/products/:id' element={<Product_info />} />
+        <Route path='/products/electronics' element={<Electronic />} />
+        <Route path='/products/clothes' element={<Clothes />} />
+        <Route path='/products/movies' element={<Movies />} />
+      </Route>
+      <Route path='/login' element={<Login />} />
+      <Route path='/signup' element={<Signup />} />
+      <Route path='/about' element={<About />} />
+      <Route path='/contact' element={<Contact />} />
+      <Route path='/profile' element={<Login />} />
+      <Route path='/adminLogin' element={<AdminLogin />} />
+      <Route path='*' element={<Error />} />
+      <Route path='/admin' element={<Admin />} />
+    </Routes>)
+  }
+
+  else if (myuser.email === "admin@gmail.com") {
+    routes = (
+      <Routes>
+        <Route path='/' element={<Admin />} />
+        <Route path='*' element={<Error />} />
+      </Routes>
+    )
+  }
+
+  else {
+    routes = (<Routes>
+      <Route path='/' element={<Profile />} />
+      <Route path='/products' element={<Api />}>
+
+        <Route index element={<Product />} />
+        <Route path=':id' element={<Product_info />} />
+        <Route path='electronics' element={<Electronic />} />
+        <Route path='clothes' element={<Clothes />} />
+        <Route path='movies' element={<Movies />} />
+      </Route>
+      <Route path='/about' element={<About />} />
+      <Route path='/contact' element={<Contact />} />
+      <Route path='/signup' element={<Profile />} />
+      <Route path='/login' element={<Profile />} />
+      <Route path='*' element={<Error />} />
+    </Routes>)
+  }
 
 
   return (
-    <>
-      {(!user)?
-        <Routes>
-
-        <Route path='/' element={<Api/>}>
-
-        <Route index element={<Product/>}/>
-        <Route path='/products/:id' element={<Product_info/>}/>
-        <Route path='/products/electronics' element={<Electronic/>}/>
-        <Route path='/products/clothes' element={<Clothes/>}/>
-        <Route path='/products/movies' element={<Movies/>}/>
-        </Route>
-        <Route path='/login' element={<Login />} />
-        <Route path='/signup' element={<Signup />} />
-        <Route path='/about' element={<About/>}/>
-        <Route path='/contact' element={<Contact/>}/>
-        <Route path='/profile' element={<Login/>}/>
-        <Route path='*' element={<Error />} />
-      </Routes>
-      
-      :
-      <Routes>
-        <Route path='/' element={<Profile/>}/>
-        <Route path='/products' element={<Api/>}>
-
-        <Route index element={<Product/>}/>
-        <Route path=':id' element={<Product_info/>}/>
-        <Route path='electronics' element={<Electronic/>}/>
-        <Route path='clothes' element={<Clothes/>}/>
-        <Route path='movies' element={<Movies/>}/>
-        </Route>
-        <Route path='/about' element={<About/>}/>
-        <Route path='/contact' element={<Contact/>}/>
-        <Route path='/signup' element={<Profile />} />
-        <Route path='/login' element={<Profile />} />
-        <Route path='*' element={<Error />} />
-      </Routes>
-    }
-
-    
-
-    </>
+    <>{routes}</>
   )
 }
 

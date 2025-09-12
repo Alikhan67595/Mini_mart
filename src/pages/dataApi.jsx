@@ -1,6 +1,6 @@
 import React from 'react'
 import {getAuth ,signInWithEmailAndPassword , onAuthStateChanged} from 'firebase/auth';
-import app from "../firebase.js";
+import {app} from "../firebase.js";
 import { Link , Outlet, useNavigate } from 'react-router-dom';
 import { useState ,useEffect } from 'react';
 import Navbar from "../components/Navbar.jsx";

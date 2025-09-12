@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import { NavLink } from 'react-router-dom'
 import {getAuth , onAuthStateChanged} from 'firebase/auth';
-import app from "../firebase.js"
+import {app} from "../firebase.js"
 
 
 
