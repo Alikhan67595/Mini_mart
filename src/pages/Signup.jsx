@@ -1,12 +1,12 @@
 import {getAuth , createUserWithEmailAndPassword , onAuthStateChanged  ,GoogleAuthProvider , signInWithPopup , updateProfile} from 'firebase/auth';
 import {collection, addDoc , setDoc, doc , serverTimestamp } from 'firebase/firestore';
 import {app , db} from "../firebase.js";
-import React from 'react'
+import { AuthContex } from '../Contex/AuthContex.jsx';
 import Button from '../components/LoginBut.jsx'
 import { Link ,useNavigate } from 'react-router-dom'
 import google from '../assets/google.svg'
 import picture from '../assets/pexels.jpg'
-import { useState , useEffect } from 'react';
+import { useState , useEffect, useContext } from 'react';
 import Navbar from '../components/Navbar.jsx';
 
 const auth = getAuth(app);
@@ -25,7 +25,8 @@ const Signup = () => {
   
 
   const navigate = useNavigate();
-
+  
+  let {mainUser , setMainUser} = useContext(AuthContex)
   
   
   // ye signup function hai
@@ -36,7 +37,10 @@ const Signup = () => {
    const Signupdata = await  createUserWithEmailAndPassword(auth, email, password)
 
    const user = Signupdata.user;
-   // console.log(user);
+// console.log(user);
+
+      setMainUser(user)
+
 
    await updateProfile(user, {
       displayName: name
@@ -50,6 +54,7 @@ const Signup = () => {
       createdAt: serverTimestamp(),
     });
 
+     navigate("/");
 
 
   }
@@ -72,6 +77,7 @@ const Signup = () => {
       const token = credential.accessToken;
       const user = result.user;
       navigate("/", { replace: true });
+      setMainUser(user)
     
     }).catch((error) => {
      console.log(error)

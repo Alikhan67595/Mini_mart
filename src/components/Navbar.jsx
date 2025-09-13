@@ -1,41 +1,43 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import logo from '../assets/mak-logo.png'
 import { Outlet, Link, NavLink, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react';
-import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
+import { AuthContex } from '../Contex/AuthContex';
+// import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
 // import {app} from "../firebase.js"
 
-const auth = getAuth();
+// const auth = getAuth();
 const Navbar = () => {
 
-  const [user, setUser] = useState()
-  const [userImage, setUserImage] = useState()
+  // const [user, setUser] = useState()
+  // const [userImage, setUserImage] = useState()
 
-
-
-  useEffect(() => {
-
-    onAuthStateChanged(auth, (user) => {
-      {
-        console.log(user)
-
-        setTimeout(()=>{
-
-          setUser(user)
-          setUserImage(user?.photoURL)
+  let {mainUser , setMainUser} = useContext(AuthContex)
   
-          console.log(userImage)
-        },500)
-        // ...
+          // setUserImage(mainUser?.photoURL)
 
-      }
+  // useEffect(() => {
 
-    });
+  //   onAuthStateChanged(auth, (user) => {
+  //     {
+  //       console.log(user)
 
-  }, [])
+  //       setTimeout(()=>{
+
+  //         setUser(user)
+  
+  //         console.log(userImage)
+  //       },500)
+  //       // ...
+
+  //     }
+
+  //   });
+
+  // }, [])
 
 
-  const firstLetter = (!userImage?.photoURL) ? user?.displayName[0].toLocaleUpperCase() : " "
+  const firstLetter = mainUser?.displayName ? mainUser?.displayName[0].toLocaleUpperCase() : " "
 
   // console.log(firstLetter)
 
@@ -44,7 +46,7 @@ const Navbar = () => {
 
   return (
     <>
-      {(!user) ?
+      {(!mainUser) ?
         <nav className='box-border w-screen h-[60px] bg-[#141414] border-b-[1px] border-[#262626]   hidden md:flex flex-col items-center justify-center pb-[20px] pt-[20px] fixed top-0 z-20 mb-[60px] '>
 
           <div className='h-full w-[90%]  flex items-center justify-between gap-[50px] max-w-7xl'>
@@ -103,12 +105,12 @@ const Navbar = () => {
                 }`
               }><li className=' px-[15px] py-[8px] rounded-[8px]'>Contact</li></NavLink>
 
-              <NavLink to={"/"} className="bg-[#703bf7] text-white text-[25px] w-[40px] h-[40px] flex justify-center items-center  rounded-[50%] ease duration-200 hover:shadow-[0_1px_10px_rgba(255,255,255,0.4)]" >
-                {!userImage 
+              <NavLink to={"/"} className="bg-[#703bf7] text-white text-[25px] w-[40px] h-[40px] flex justify-center items-center  rounded-[50%] ease duration-200 hover:shadow-[0_1px_10px_rgba(255,255,255,0.4)] select-none" >
+                {!mainUser.photoURL 
 
                 ? firstLetter
 
-                : <img className='w-[40px] h-[40px] rounded-[50%]' src={userImage} alt="" />
+                : <img className='w-[40px] h-[40px] rounded-[50%]' src={mainUser.photoURL} alt="" />
              }
               </NavLink>
 

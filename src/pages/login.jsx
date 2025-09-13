@@ -5,8 +5,9 @@ import Button from '../components/LoginBut.jsx';
 import { Link, useNavigate } from 'react-router-dom';
 import google from '../assets/google.svg';
 import picture from '../assets/pexels.jpg';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Navbar from '../components/Navbar.jsx';
+import { AuthContex } from '../Contex/AuthContex.jsx';
 
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
@@ -17,6 +18,8 @@ const Login = () => {
 
   const [EmailFocus, setEmailFocus] = useState(false)
   const [passwordFocus, setPasswordFocus] = useState(false)
+
+  let {mainUser, setMainUser} = useContext(AuthContex)
 
 
   const navigate = useNavigate();
@@ -31,6 +34,8 @@ const Login = () => {
         const user = userCredential.user;
         navigate("/", { replace: true });
         // console.log(user)
+
+        setMainUser(user)
         // ...
       })
       .catch((error) => {
@@ -50,6 +55,7 @@ const Login = () => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         const user = result.user;
+        setMainUser(user)
         navigate("/", { replace: true });
 
       }).catch((error) => {

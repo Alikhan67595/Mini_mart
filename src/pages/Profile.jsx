@@ -1,8 +1,11 @@
 import { getAuth, signOut, onAuthStateChanged , updateProfile } from "firebase/auth";
+import { db } from "../firebase.js";
+import { onSnapshot , collection } from "firebase/firestore";
 import { Outlet, Link, NavLink, useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar';
 import Mobilenavbar from '../components/Mobilenavbar.jsx';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState , useRef } from 'react';
+import { AuthContex } from "../Contex/AuthContex.jsx";
 
 
 
@@ -14,8 +17,8 @@ const Profile = () => {
 
   const navigate = useNavigate()
 
-  const [myUser, setMyUser] = useState('')
-  // const [myImage , setMyImage] = useState()
+
+  let {mainUser , setMainUser} = useContext(AuthContex)
 
 
   const handelsignOut = () => {
@@ -29,25 +32,10 @@ const Profile = () => {
 
   }
 
-    useEffect(() => {
 
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const uid = user.uid;
 
-        // ye current user ko variable mai save kar raha hai 
-        setTimeout(()=>{
-          setMyUser(user)
-          console.log( "This is User",myUser)
-        },500)
 
-      }
-      
-    });
-    
-  }, [])
-
-  const myfirstLetter = myUser?.displayName ? myUser.displayName[0].toLocaleUpperCase() : ""
+  const myfirstLetter = mainUser?.displayName ? mainUser.displayName[0].toLocaleUpperCase() : ""
   // console.log(myfirstLetter)
 
 
@@ -64,19 +52,19 @@ const Profile = () => {
         <div className='box-border flex flex-wrap justify-center items-center gap-[50px]'>
           {/* <h1 className='text-3xl font-bold text-center mt-[20px]'>My Profile</h1> */}
 
-          {myUser.photoURL 
+          {mainUser.photoURL 
 
-          ? <div className=' text-[clamp(40px,15vw,120px)] h-[170px] w-[170px] rounded-[50%] bg-[#703bf7] flex items-center justify-center'>{<img className="h-[170px] w-[170px] rounded-[50%]" src={myUser?.photoURL} />
-            }</div>
+          ? <div className=' text-[clamp(40px,15vw,120px)] h-[170px] w-[170px] rounded-[50%] bg-[#703bf7] flex items-center justify-center'><img className="h-[170px] w-[170px] rounded-[50%]" src={mainUser?.photoURL} />
+            </div>
 
 
-          : <div className=' text-[clamp(40px,15vw,120px)] h-[170px] w-[170px] rounded-[50%] bg-[#703bf7] flex items-center justify-center'>{myfirstLetter  }</div>
+          : <div className=' text-[clamp(40px,15vw,120px)] h-[170px] w-[170px] rounded-[50%] bg-[#703bf7] flex items-center justify-center select-none'>{myfirstLetter  }</div>
            }
 
           <div className=''>
-            <h1 className='text-[30px] font-semibold mt-[10px]'>{myUser?.displayName}</h1>
-            <h1 className='text-[16px] font-semibold mt-[10px]'>Email : {myUser?.email}</h1>
-            <h1 className='text-[16px] font-semibold mt-[10px]'>Join : {myUser?.metadata?.creationTime}</h1>
+            <h1 className='text-[30px] font-semibold mt-[10px]'>{mainUser?.displayName}</h1>
+            <h1 className='text-[16px] font-semibold mt-[10px]'>Email : {mainUser?.email}</h1>
+            <h1 className='text-[16px] font-semibold mt-[10px]'>Join : {mainUser?.metadata?.creationTime}</h1>
           </div>
 
           <div>

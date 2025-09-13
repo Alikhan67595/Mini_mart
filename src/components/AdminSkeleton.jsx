@@ -16,7 +16,7 @@ const AdminSkeleton = () => {
           </thead>
           <tbody>
             {Array.from({length:30}).map((data, i) => (
-              <tr className="">
+              <tr className="" key={i+1}>
                 <td className="bg-[#141414] text-center h-[40px]  border"></td>
                 <td className="bg-[#141414] pl-[20px] h-[40px]  border"></td>
                 <td className="bg-[#141414] pl-[20px] h-[40px]  border"></td>

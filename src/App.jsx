@@ -1,8 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect, useContext } from 'react'
+import { AuthContex } from './Contex/AuthContex.jsx'
 import Login from './pages/login'
 import Signup from './pages/Signup.jsx'
 import Api from './pages/dataApi.jsx'
@@ -15,30 +13,52 @@ import Product from './pages/Product.jsx'
 import Clothes from './pages/Clothes.jsx'
 import Movies from './pages/Movies.jsx'
 import Product_info from './pages/Product_info.jsx'
-import {app} from "./firebase.js";
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import AdminLogin from './pages/AdminLogin.jsx'
 import Admin from './pages/Admin.jsx'
+import Navbar from './components/Navbar.jsx'
+import Loader from './components/Loader.jsx'
 
 
 
 function App() {
 
-  const auth = getAuth(app);
+  let {mainUser, setMainUser} = useContext(AuthContex)
+  let {loading ,setLoading} = useContext(AuthContex)
 
-  const [myuser, setUser] = useState(null);
-
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      setUser(user);
-    });
-
-  },);
 
   let routes;
 
-  if (!myuser) {
+  if (mainUser?.email === "admin@gmail.com") {
+    routes = (
+      <Routes>
+        <Route path='/' element={<Admin />} />
+        <Route path='*' element={<Error />} />
+      </Routes>
+    )}
+
+  else if (mainUser) {
+    
+    routes = (<Routes>
+      <Route path='/' element={<Profile />} />
+      <Route path='/products' element={<Api />}>
+
+        <Route index element={<Product />} />
+        <Route path=':id' element={<Product_info />} />
+        <Route path='electronics' element={<Electronic />} />
+        <Route path='clothes' element={<Clothes />} />
+        <Route path='movies' element={<Movies />} />
+      </Route>
+      <Route path='/about' element={<About />} />
+      <Route path='/contact' element={<Contact />} />
+      {/* <Route path='/signup' element={<Profile />} /> */}
+      {/* <Route path='/login' element={<Profile />} /> */}
+      <Route path='*' element={<><Navbar/> <br /><br /><br /> <br /> <Product /> </> } />
+    </Routes>)
+  }
+
+ 
+
+  else {
     routes = (<Routes>
 
       <Route path='/' element={<Api />}>
@@ -60,37 +80,15 @@ function App() {
     </Routes>)
   }
 
-  else if (myuser.email === "admin@gmail.com") {
-    routes = (
-      <Routes>
-        <Route path='/' element={<Admin />} />
-        <Route path='*' element={<Error />} />
-      </Routes>
-    )
-  }
-
-  else {
-    routes = (<Routes>
-      <Route path='/' element={<Profile />} />
-      <Route path='/products' element={<Api />}>
-
-        <Route index element={<Product />} />
-        <Route path=':id' element={<Product_info />} />
-        <Route path='electronics' element={<Electronic />} />
-        <Route path='clothes' element={<Clothes />} />
-        <Route path='movies' element={<Movies />} />
-      </Route>
-      <Route path='/about' element={<About />} />
-      <Route path='/contact' element={<Contact />} />
-      <Route path='/signup' element={<Profile />} />
-      <Route path='/login' element={<Profile />} />
-      <Route path='*' element={<Error />} />
-    </Routes>)
-  }
-
 
   return (
-    <>{routes}</>
+    <>
+    {
+    loading 
+   ? <Loader/>
+    : routes
+    }
+    </>
   )
 }
 

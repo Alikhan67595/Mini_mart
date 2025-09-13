@@ -2,8 +2,10 @@ import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'firebas
 import {app} from "../firebase.js";
 import Button from '../components/LoginBut.jsx'
 import { Link, Navigate, replace, useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Navbar from '../components/Navbar.jsx';
+import { AuthContex } from '../Contex/AuthContex.jsx';      
+
 
 const auth = getAuth(app);
 
@@ -23,21 +25,26 @@ const AdminLogin = () => {
     const userEmail = "admin@gmail.com"
     const userName = "admin"
 
+    let {mainUser , setMainUser} = useContext(AuthContex)
 
-    const adminLoginHandel = () => {
+    const adminLoginHandel = async() => {
 
-        signInWithEmailAndPassword(auth, userEmail, password)
-            .then((userCredential) => {
-                // Signed in 
-                const user = userCredential.user;
-                navigate("/", { replace: true });
-                // console.log(user)
-                // ...
-            })
-            .catch((error) => {
-                console.log(error)
-            });
+try {
 
+    signInWithEmailAndPassword(auth, userEmail, password)
+        .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+            navigate("/", { replace: true });
+            setMainUser(user)
+            // console.log(user)
+            // ...
+        })
+    
+} catch (error) {
+    console.log("This is Admin login error", error)
+}
+         
     }
 
 
