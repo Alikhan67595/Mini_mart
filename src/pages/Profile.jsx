@@ -17,6 +17,7 @@ const Profile = () => {
 
   const navigate = useNavigate()
 
+  const password = useRef()
 
   let {mainUser , setMainUser} = useContext(AuthContex)
 
@@ -54,11 +55,10 @@ const Profile = () => {
 
           {mainUser.photoURL 
 
-          ? <div className=' text-[clamp(40px,15vw,120px)] h-[170px] w-[170px] rounded-[50%] bg-[#703bf7] flex items-center justify-center'><img className="h-[170px] w-[170px] rounded-[50%]" src={mainUser?.photoURL} />
-            </div>
+          ? <div className='h-[170px] w-[170px] rounded-[50%] bg-[#703bf7] flex items-center justify-center bg-cover bg-center' style={{backgroundImage: mainUser?.photoURL ? `url(${mainUser?.photoURL})` : ""}}></div>
 
 
-          : <div className=' text-[clamp(40px,15vw,120px)] h-[170px] w-[170px] rounded-[50%] bg-[#703bf7] flex items-center justify-center select-none'>{myfirstLetter  }</div>
+          : <div className=' text-[clamp(40px,25vw,120px)] select-none h-[170px] w-[170px] rounded-[50%] bg-[#703bf7] flex items-center justify-center'>{myfirstLetter  }</div>
            }
 
           <div className=''>

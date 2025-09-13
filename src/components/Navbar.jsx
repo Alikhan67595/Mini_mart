@@ -105,12 +105,13 @@ const Navbar = () => {
                 }`
               }><li className=' px-[15px] py-[8px] rounded-[8px]'>Contact</li></NavLink>
 
-              <NavLink to={"/"} className="bg-[#703bf7] text-white text-[25px] w-[40px] h-[40px] flex justify-center items-center  rounded-[50%] ease duration-200 hover:shadow-[0_1px_10px_rgba(255,255,255,0.4)] select-none" >
+              <NavLink to={"/"} className="bg-[#703bf7] text-white text-[25px] w-[40px] h-[40px] flex justify-center items-center  rounded-[50%] ease duration-200 hover:shadow-[0_1px_10px_rgba(255,255,255,0.4)] select-none bg-cover bg-center" 
+              style={{backgroundImage: mainUser?.photoURL ? `url(${mainUser?.photoURL})` : ""}}>
                 {!mainUser.photoURL 
 
                 ? firstLetter
 
-                : <img className='w-[40px] h-[40px] rounded-[50%]' src={mainUser.photoURL} alt="" />
+                : ""
              }
               </NavLink>
 
