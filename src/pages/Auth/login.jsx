@@ -1,13 +1,11 @@
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import {app} from "../firebase.js";
-import React from 'react';
-import Button from '../components/LoginBut.jsx';
+import {app} from "../../firebase.js";
+import Button from '../../components/LoginBut.jsx';
 import { Link, useNavigate } from 'react-router-dom';
-import google from '../assets/google.svg';
-import picture from '../assets/pexels.jpg';
+import google from '../../assets/google.svg';
 import { useState, useEffect, useContext } from 'react';
-import Navbar from '../components/Navbar.jsx';
-import { AuthContex } from '../Contex/AuthContex.jsx';
+import Navbar from '../../components/Navbar.jsx';
+import { AuthContex } from '../../Contex/AuthContex.jsx';
 
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();

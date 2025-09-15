@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import { collection, onSnapshot } from "firebase/firestore";
-import { db } from "../firebase.js";
-import AdminSkeleton from "../components/AdminSkeleton.jsx";
-import { AuthContex } from "../Contex/AuthContex.jsx";
-import Loader from "../components/Loader.jsx";
-import LoginBut from "../components/LoginBut.jsx";
+import { db } from "../../firebase.js";
+import AdminSkeleton from "../../components/AdminSkeleton.jsx";
+import { AuthContex } from "../../Contex/AuthContex.jsx";
+import Loader from "../../components/Loader.jsx";
+import LoginBut from "../../components/LoginBut.jsx";
 
 
 const Admin = () => {

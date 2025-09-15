@@ -1,22 +1,23 @@
 import { Routes, Route } from 'react-router-dom'
 import { useState, useEffect, useContext } from 'react'
 import { AuthContex } from './Contex/AuthContex.jsx'
-import Login from './pages/login'
-import Signup from './pages/Signup.jsx'
-import Api from './pages/dataApi.jsx'
-import Error from './pages/Error.jsx'
+import Login from './pages/Auth/login.jsx'
+import Signup from './pages/Auth/Signup.jsx'
+import Error from './pages/Error/Error.jsx'
 import About from './pages/About.jsx'
 import Contact from './pages/Contact.jsx'
-import Profile from './pages/Profile.jsx'
-import Electronic from './pages/Electronic.jsx'
-import Product from './pages/Product.jsx'
-import Clothes from './pages/Clothes.jsx'
 import Movies from './pages/Movies.jsx'
-import Product_info from './pages/Product_info.jsx'
-import AdminLogin from './pages/AdminLogin.jsx'
-import Admin from './pages/Admin.jsx'
+import Clothes from './pages/Clothes.jsx'
+import Profile from './pages/dashboard/Profile.jsx'
+import Electronic from './pages/Electronic.jsx'
+import Api from './pages/API_Products/dataApi.jsx'
+import Product from './pages/API_Products/Product.jsx'
+import Product_info from './pages/API_Products/Product_info.jsx'
+import AdminLogin from './pages/Admin/AdminLogin.jsx'
+import Admin from './pages/Admin/Admin.jsx'
 import Navbar from './components/Navbar.jsx'
 import Loader from './components/Loader.jsx'
+import AddProduct from './pages/ProductsListing/Add_Product.jsx'
 
 
 
@@ -48,10 +49,9 @@ function App() {
         <Route path='clothes' element={<Clothes />} />
         <Route path='movies' element={<Movies />} />
       </Route>
+      <Route path='/add_Product' element={<AddProduct/>} />
       <Route path='/about' element={<About />} />
       <Route path='/contact' element={<Contact />} />
-      {/* <Route path='/signup' element={<Profile />} /> */}
-      {/* <Route path='/login' element={<Profile />} /> */}
       <Route path='*' element={<><Navbar/> <br /><br /><br /> <br /> <Product /> </> } />
     </Routes>)
   }

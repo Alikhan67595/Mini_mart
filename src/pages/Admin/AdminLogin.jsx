@@ -1,10 +1,10 @@
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
-import {app} from "../firebase.js";
-import Button from '../components/LoginBut.jsx'
+import {app} from "../../firebase.js";
+import Button from '../../components/LoginBut.jsx'
 import { Link, Navigate, replace, useNavigate } from 'react-router-dom'
 import { useState, useEffect, useContext } from 'react';
-import Navbar from '../components/Navbar.jsx';
-import { AuthContex } from '../Contex/AuthContex.jsx';      
+import Navbar from '../../components/Navbar.jsx';
+import { AuthContex } from '../../Contex/AuthContex.jsx';      
 
 
 const auth = getAuth(app);

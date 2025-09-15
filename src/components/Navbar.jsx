@@ -3,39 +3,13 @@ import logo from '../assets/mak-logo.png'
 import { Outlet, Link, NavLink, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import { AuthContex } from '../Contex/AuthContex';
-// import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
-// import {app} from "../firebase.js"
 
-// const auth = getAuth();
 const Navbar = () => {
 
-  // const [user, setUser] = useState()
-  // const [userImage, setUserImage] = useState()
+
 
   let {mainUser , setMainUser} = useContext(AuthContex)
   
-          // setUserImage(mainUser?.photoURL)
-
-  // useEffect(() => {
-
-  //   onAuthStateChanged(auth, (user) => {
-  //     {
-  //       console.log(user)
-
-  //       setTimeout(()=>{
-
-  //         setUser(user)
-  
-  //         console.log(userImage)
-  //       },500)
-  //       // ...
-
-  //     }
-
-  //   });
-
-  // }, [])
-
 
   const firstLetter = mainUser?.displayName ? mainUser?.displayName[0].toLocaleUpperCase() : " "
 
@@ -51,7 +25,7 @@ const Navbar = () => {
 
           <div className='h-full w-[90%]  flex items-center justify-between gap-[50px] max-w-7xl'>
 
-            <Link to={"/"}><div className='w-[100px]'><img width={'100%'} src={logo} alt={logo} /></div></Link>
+            <Link to={"/"}><div className='w-[100px] h-[50px] bg-center  bg-contain bg-no-repeat' style={{backgroundImage: `url(${logo})`}}></div></Link>
 
             <ul className='flex items-center gap-4'>
               <NavLink to={"/"} className={({ isActive }) =>
@@ -85,7 +59,7 @@ const Navbar = () => {
 
           <div className='h-full w-[90%]  flex items-center justify-between gap-[50px] max-w-7xl'>
 
-            <Link to={"/products"}><div className='w-[100px]'><img width={'100%'} src={logo} alt={logo} /></div></Link>
+            <Link to={"/products"}><div className='w-[100px] h-[50px] bg-center  bg-contain bg-no-repeat' style={{backgroundImage: `url(${logo})`}}></div></Link>
 
             <ul className='flex items-center gap-4'>
               <NavLink to={"/products"} className={({ isActive }) =>

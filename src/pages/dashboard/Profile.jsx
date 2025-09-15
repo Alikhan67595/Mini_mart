@@ -1,11 +1,11 @@
 import { getAuth, signOut, onAuthStateChanged , updateProfile } from "firebase/auth";
-import { db } from "../firebase.js";
+import { db } from "../../firebase.js";
 import { onSnapshot , collection } from "firebase/firestore";
-import { Outlet, Link, NavLink, useNavigate } from 'react-router-dom'
-import Navbar from '../components/Navbar';
-import Mobilenavbar from '../components/Mobilenavbar.jsx';
+import { useNavigate , Link } from 'react-router-dom'
+import Navbar from '../../components/Navbar.jsx';
+import Mobilenavbar from '../../components/Mobilenavbar.jsx';
 import { useContext, useEffect, useState , useRef } from 'react';
-import { AuthContex } from "../Contex/AuthContex.jsx";
+import { AuthContex } from "../../Contex/AuthContex.jsx";
 
 
 
@@ -34,12 +34,8 @@ const Profile = () => {
   }
 
 
-
-
   const myfirstLetter = mainUser?.displayName ? mainUser.displayName[0].toLocaleUpperCase() : ""
   // console.log(myfirstLetter)
-
-
 
 
   return (
@@ -48,18 +44,18 @@ const Profile = () => {
       <Mobilenavbar />
 
       <Navbar />
-      <div className='text-white flex  mt-[60px] pl-[20px'>
+      <div className='text-white flex  mt-[80px] pl-[20px w-screen   max-w-7xl m-auto p-[20px]'>
 
-        <div className='box-border flex flex-wrap justify-center items-center gap-[50px]'>
+        <div className='box-border flex flex-wrap justify-center items-center gap-[50px]  '>
           {/* <h1 className='text-3xl font-bold text-center mt-[20px]'>My Profile</h1> */}
 
           {mainUser.photoURL 
 
-          ? <div className='h-[170px] w-[170px] rounded-[50%] bg-[#703bf7] flex items-center justify-center bg-cover bg-center' style={{backgroundImage: mainUser?.photoURL ? `url(${mainUser?.photoURL})` : ""}}></div>
-
-
+          ? <div className='h-[170px] w-[170px] rounded-[50%] bg-[#703bf7] flex items-center justify-center bg-cover bg-center' style={{backgroundImage:  `url(${mainUser?.photoURL})`}}></div>
+          
+          
           : <div className=' text-[clamp(40px,25vw,120px)] select-none h-[170px] w-[170px] rounded-[50%] bg-[#703bf7] flex items-center justify-center'>{myfirstLetter  }</div>
-           }
+        }
 
           <div className=''>
             <h1 className='text-[30px] font-semibold mt-[10px]'>{mainUser?.displayName}</h1>
@@ -68,14 +64,18 @@ const Profile = () => {
           </div>
 
           <div>
-            <button onClick={handelsignOut} className='bg-[#703bf7] px-[18px] py-[9px] rounded-md text-[15px] cursor-pointer'>Logout</button>
+            <button onClick={handelsignOut} className='bg-[#703bf7] hover:bg-[#4e3394] duration-150 px-[18px] py-[9px] rounded-md text-[15px] cursor-pointer'>Logout</button>
           </div>
         </div>
       </div>
 
+      <Link to={'/add_Product'}><button>Add Product</button></Link>
+
+      
+
+
     </>
   )
 }
-
 
 export default Profile
