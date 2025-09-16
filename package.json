@@ -12,10 +12,13 @@
       "preview": "vite preview"
    },
    "dependencies": {
+      "@cloudinary/react": "^1.14.3",
+      "@cloudinary/url-gen": "^1.22.0",
       "@headlessui/react": "^2.2.7",
       "@heroicons/react": "^2.2.0",
       "@tailwindcss/vite": "^4.1.12",
       "axios": "^1.11.0",
+      "cloudinary": "^2.7.0",
       "firebase": "^12.2.1",
       "react": "^19.1.1",
       "react-dom": "^19.1.1",

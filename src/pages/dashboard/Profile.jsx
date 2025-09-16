@@ -6,6 +6,7 @@ import Navbar from '../../components/Navbar.jsx';
 import Mobilenavbar from '../../components/Mobilenavbar.jsx';
 import { useContext, useEffect, useState , useRef } from 'react';
 import { AuthContex } from "../../Contex/AuthContex.jsx";
+import CustomProduct from "../ProductsListing/CustomProductsFetch.jsx";
 
 
 
@@ -70,6 +71,7 @@ const Profile = () => {
       </div>
 
       <Link to={'/add_Product'}><button>Add Product</button></Link>
+      <CustomProduct/>
 
       
 
